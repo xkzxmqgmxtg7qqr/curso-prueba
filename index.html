@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Distribuciones muestrales — Recurso interactivo</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <!-- MathJax para notación matemática -->
+  <script>
+    window.MathJax = { tex: {inlineMath: [['$','$'], ['\\(','\\)']]}, svg: {fontCache: 'global'} };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Distribuciones muestrales</h1>
+    <nav>
+      <a href="#/teoria">Teoría</a>
+      <a href="#/practica">Práctica</a>
+      <a href="#/resultados">Resultados</a>
+    </nav>
+  </header>
+
+  <main id="app" class="container"></main>
+
+  <footer class="site-footer">
+    <small>© UTEM — Recurso modular (demo). Autor: Luis Felipe</small>
+  </footer>
+
+  <script type="module">
+    import { initRouter } from './modules/router.js';
+    initRouter();
+  </script>
+</body>
+</html>
