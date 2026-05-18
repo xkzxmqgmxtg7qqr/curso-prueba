@@ -4,35 +4,80 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Inferencia para Ingeniería — Recurso interactivo</title>
+  <meta name="description" content="Aplicación interactiva para enseñar inferencia estadística en cursos de ingeniería.">
+  <meta name="theme-color" content="#003DA5">
   <link rel="stylesheet" href="styles.css">
-  <!-- MathJax para notación matemática -->
+
+  <!-- Modulos de la app: el router conecta vistas, bancos, calificador y almacenamiento. -->
+  <link rel="modulepreload" href="./router.js">
+  <link rel="modulepreload" href="./ui.js">
+  <link rel="modulepreload" href="./ui_practice.js">
+  <link rel="modulepreload" href="./storage.js">
+  <link rel="modulepreload" href="./grader.js">
+  <link rel="modulepreload" href="./utils.js">
+  <link rel="modulepreload" href="./bank_inferencia.js">
+  <link rel="modulepreload" href="./bank_intervalos.js">
+  <link rel="modulepreload" href="./bank_hipotesis.js">
+  <link rel="modulepreload" href="./bank_media.js">
+  <link rel="modulepreload" href="./bank_proporcion.js">
+  <link rel="modulepreload" href="./bank_varianza.js">
+
+  <!-- MathJax para notacion matematica en teoria, simulador y practica. -->
   <script>
     window.MathJax = { tex: {inlineMath: [['$','$'], ['\\(','\\)']]}, svg: {fontCache: 'global'} };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
+  <a class="skip-link" href="#app">Saltar al contenido</a>
   <header class="site-header">
-    <h1>Inferencia para Ingeniería</h1>
-    <nav>
-      <a href="#/inicio">Inicio</a>
-      <a href="#/ruta">Ruta</a>
-      <a href="#/teoria">Teoría</a>
-      <a href="#/simulador">Simulador</a>
-      <a href="#/practica">Práctica</a>
-      <a href="#/resultados">Resultados</a>
+    <h1><a href="#/inicio" aria-label="Ir al inicio">Inferencia para Ingeniería</a></h1>
+    <nav aria-label="Secciones principales">
+      <a href="#/inicio" data-route="inicio">Inicio</a>
+      <a href="#/ruta" data-route="ruta">Ruta</a>
+      <a href="#/teoria" data-route="teoria">Teoría</a>
+      <a href="#/simulador" data-route="simulador">Simulador</a>
+      <a href="#/practica" data-route="practica">Práctica</a>
+      <a href="#/resultados" data-route="resultados">Resultados</a>
     </nav>
   </header>
 
-  <main id="app" class="container"></main>
+  <main id="app" class="container" tabindex="-1" aria-live="polite">
+    <section class="card app-status">
+      <h2>Cargando aplicación...</h2>
+      <p>Se están conectando las vistas, bancos de ejercicios, simulador y almacenamiento local.</p>
+    </section>
+  </main>
+
+  <noscript>
+    <section class="container">
+      <div class="card error">
+        <h2>JavaScript requerido</h2>
+        <p>Activa JavaScript para usar la navegación, el simulador y la práctica autocorregible.</p>
+      </div>
+    </section>
+  </noscript>
 
   <footer class="site-footer">
     <small>Recurso modular para cursos de ingeniería — inferencia estadística aplicada.</small>
   </footer>
 
   <script type="module">
-    import { initRouter } from './router.js';
-    initRouter();
+    const app = document.getElementById('app');
+
+    try {
+      const { initRouter } = await import('./router.js');
+      initRouter();
+    } catch (error) {
+      console.error('No se pudo iniciar la aplicación', error);
+      app.innerHTML = `
+        <section class="card error">
+          <h2>No se pudo cargar la aplicación</h2>
+          <p>Verifica que todos los archivos JavaScript estén en la misma carpeta que <code>index.html</code>.</p>
+          <p>Si abriste el archivo directamente y tu navegador bloquea módulos ES, sirve la carpeta con un servidor local o publícala en GitHub Pages.</p>
+          <pre>${String(error.message || error)}</pre>
+        </section>`;
+    }
   </script>
 </body>
 </html>

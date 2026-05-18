@@ -11,6 +11,10 @@
 - Práctica autocorregible con problemas de manufactura, sensores, calidad, energía y confiabilidad.
 - Registro local de intentos con retroalimentación inmediata.
 
+## Archivo de entrada
+- `index.html` conecta toda la aplicación: estilos, MathJax, router, vistas, bancos de ejercicios, calificador y almacenamiento.
+- Si el navegador bloquea módulos ES al abrir el archivo directamente, sirve la carpeta con un servidor local o publícala en GitHub Pages.
+
 ## Desarrollo local
 - Abrir `index.html` directamente en el navegador (o servir con una extensión de live server en VS Code).
 
