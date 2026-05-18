@@ -1,6 +1,6 @@
 import { gradeAttempt } from './grader.js';
 
-const KEY = 'dm_intentos_v1';
+const KEY = 'inferencia_ingenieria_intentos_v1';
 
 export function storeAttempt(payload){
   const prev = JSON.parse(localStorage.getItem(KEY) || '[]');
@@ -13,7 +13,13 @@ export function getSummary(){
   const data = JSON.parse(localStorage.getItem(KEY) || '[]');
   if (!data.length) return { intentos: 0, ultimoTS: null, filas: [] };
   const last = data[data.length - 1];
-  return { intentos: data.length, ultimoTS: last.ts, filas: last.resultado };
+  const filas = last.resultado || [];
+  return {
+    intentos: data.length,
+    ultimoTS: last.ts,
+    filas,
+    correctas: filas.filter((fila) => fila.ok).length
+  };
 }
 
 // Envío remoto opcional (Google Apps Script)

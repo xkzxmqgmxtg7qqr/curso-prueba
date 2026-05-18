@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Distribuciones muestrales — Recurso interactivo</title>
+  <title>Inferencia para Ingeniería — Recurso interactivo</title>
   <link rel="stylesheet" href="styles.css">
   <!-- MathJax para notación matemática -->
   <script>
@@ -13,9 +13,12 @@
 </head>
 <body>
   <header class="site-header">
-    <h1>Distribuciones muestrales</h1>
+    <h1>Inferencia para Ingeniería</h1>
     <nav>
+      <a href="#/inicio">Inicio</a>
+      <a href="#/ruta">Ruta</a>
       <a href="#/teoria">Teoría</a>
+      <a href="#/simulador">Simulador</a>
       <a href="#/practica">Práctica</a>
       <a href="#/resultados">Resultados</a>
     </nav>
@@ -24,11 +27,11 @@
   <main id="app" class="container"></main>
 
   <footer class="site-footer">
-    <small>© UTEM — Recurso modular (demo). Autor: Luis Felipe</small>
+    <small>Recurso modular para cursos de ingeniería — inferencia estadística aplicada.</small>
   </footer>
 
   <script type="module">
-    import { initRouter } from '.router.js';
+    import { initRouter } from './router.js';
     initRouter();
   </script>
 </body>
