@@ -1,8 +1,6 @@
-import { bankMedia } from './bank_media.js';
-import { bankVar } from './bank_varianza.js';
-import { bankProp } from './bank_proporcion.js';
+import { bankInferencia } from './bank_inferencia.js';
 
-const bank = [...bankMedia, ...bankVar, ...bankProp];
+const bank = bankInferencia;
 
 function nearlyEqual(a, b, tol=1e-3){
   return Math.abs(a - b) <= tol;
@@ -17,13 +15,14 @@ export function gradeAttempt(payload){
     const ans = parseFloat(r.ans);
     let ok = false, msg = '';
     if (Number.isFinite(ans)){
-      const target = sol.prob ?? sol.c ?? sol.z ?? sol.z2 ?? sol.z1;
-      ok = Number.isFinite(target) && nearlyEqual(ans, target, 2e-2);
-      msg = ok ? '¡Bien!' : `Esperado ≈ ${target}`;
+      const target = sol.respuesta ?? sol.prob ?? sol.c ?? sol.z ?? sol.z2 ?? sol.z1;
+      const tol = item.tolerance ?? 2e-2;
+      ok = Number.isFinite(target) && nearlyEqual(ans, target, tol);
+      msg = ok ? `Correcto. ${sol.detalle || ''}` : `Esperado ≈ ${target}. ${sol.detalle || ''}`;
     } else {
       msg = 'Ingresa un número válido';
     }
-    filas.push({ id: item.id, ok, ans: r.ans, msg });
+    filas.push({ id: item.id, titulo: item.titulo, unidad: item.unidad, ok, ans: r.ans, msg });
   });
   return filas;
 }
